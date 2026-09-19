@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hananeel Mandam</title>
+<meta name="description" content="Portfolio — UAV emergency landing perception, Baja SAE drivetrain, and real-time ECG signal processing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light dark;
+    --ink:#1c2430;
+    --ink-soft:#4a5568;
+    --paper:#f6f3ec;
+    --paper-raised:#ffffff;
+    --line:#d9d3c4;
+    --rust:#b8562e;
+    --blue:#3c6a87;
+    --mono: 'IBM Plex Mono', 'Courier New', monospace;
+    --sans: 'IBM Plex Sans', -apple-system, sans-serif;
+    --disp: 'Fraunces', Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#eae5da;
+      --ink-soft:#a8a196;
+      --paper:#181b20;
+      --paper-raised:#20242b;
+      --line:#333940;
+      --rust:#d97b4f;
+      --blue:#7fa9c2;
+    }
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    padding-inline:20px;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+
+  h1,h2,h3{font-family:var(--disp);font-weight:600;text-wrap:balance;margin:0;}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--rust);
+  }
+  a{color:var(--blue);}
+  img{max-width:100%;}
+
+  /* HERO */
+  header.hero{
+    padding-block:56px 40px;
+    border-bottom:1px solid var(--line);
+  }
+  header.hero h1{font-size:clamp(32px,6vw,52px);letter-spacing:-0.01em;}
+  header.hero .role{
+    font-family:var(--mono);
+    font-size:14px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  header.hero p.lede{
+    max-width:60ch;
+    margin-top:20px;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
+  .contact-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    margin-top:22px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .contact-row a{text-decoration:none;border-bottom:1px solid var(--blue);}
+
+  /* SECTION SHELL */
+  section{padding-block:48px;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:28px;}
+  .section-head h2{font-size:clamp(24px,4vw,32px);margin-top:6px;}
+
+  /* PROJECT BLOCK */
+  .project{
+    display:grid;
+    grid-template-columns: 1fr 240px;
+    gap:32px;
+  }
+  @media (max-width:640px){
+    .project{grid-template-columns:1fr;}
+  }
+  .project .story h3{font-size:20px;margin-bottom:10px;}
+  .project .story p{color:var(--ink-soft);margin:0 0 14px;}
+  .project .story p:last-child{margin-bottom:0;}
+  .project .story strong{color:var(--ink);font-weight:600;}
+
+  .specs{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:18px;
+    align-self:start;
+    font-family:var(--mono);
+    font-size:12.5px;
+  }
+  .specs dt{
+    color:var(--rust);
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:10.5px;
+    margin-top:14px;
+  }
+  .specs dt:first-child{margin-top:0;}
+  .specs dd{margin:4px 0 0;color:var(--ink-soft);}
+  .specs .result{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+  .tag{
+    font-family:var(--mono);
+    font-size:11px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:3px 8px;
+    color:var(--ink-soft);
+  }
+
+  /* PULL QUOTE / MOMENT */
+  .moment{
+    border-left:2px solid var(--rust);
+    padding-left:16px;
+    margin:18px 0;
+    font-style:italic;
+    color:var(--ink);
+  }
+
+  /* ABOUT */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:24px;
+  }
+  @media (max-width:640px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid h3{
+    font-family:var(--mono);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:var(--rust);
+    margin-bottom:8px;
+  }
+  .about-grid p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  /* GALLERY */
+  .gallery{
+    margin-top:32px;
+  }
+  .gallery .eyebrow{margin-bottom:14px;display:block;}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:14px;
+  }
+  @media (max-width:640px){
+    .gallery-grid{grid-template-columns:1fr 1fr;}
+  }
+  .gallery-grid figure{
+    margin:0;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .gallery-grid img{
+    display:block;
+    width:100%;
+    height:150px;
+    object-fit:cover;
+    border-bottom:1px solid var(--line);
+    background:#000;
+  }
+  .gallery-grid figcaption{
+    font-family:var(--mono);
+    font-size:10.5px;
+    line-height:1.4;
+    color:var(--ink-soft);
+    padding:8px 10px;
+  }
+
+  footer{
+    padding-block:36px 48px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Portfolio — Mechanical Engineering</div>
+    <h1>Hananeel Ephraim Mandam</h1>
+    <div class="role">B.E. Mechanical Engineering, BITS Pilani Hyderabad &nbsp;·&nbsp; Expected Aug 2028</div>
+    <p class="lede">
+      I build things that have to work under load and under uncertainty — a drivetrain that
+      survives a race, a perception pipeline that survives being wrong. Three projects below:
+      a shop floor, a GPU, and a signal processing bench.
+    </p>
+    <div class="contact-row">
+      <a href="mailto:f20240697@hyderabad.bits-pilani.ac.in">f20240697@hyderabad.bits-pilani.ac.in</a>
+      <a href="https://www.linkedin.com/in/hananeel-ephraim-205b00319/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/Hananeel-dev" target="_blank" rel="noopener">GitHub</a>
+      <a href="files/Hananeel_Mandam_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+      <span style="color:var(--ink-soft)">Open to Summer 2027 internships</span>
+    </div>
+  </header>
+
+  <section id="uav">
+    <div class="section-head">
+      <div class="eyebrow">Project 01 — Perception &amp; Safety</div>
+      <h2>Emergency Landing Zone Selection for UAVs</h2>
+    </div>
+    <div class="project">
+      <div class="story">
+        <p>
+          A UAV that loses power mid-flight has seconds to pick a landing spot. Most vision
+          pipelines answer "what's down there" and stop — they'll call a spot safe because a
+          segmentation model was confident, even when that confidence is wrong. I built a
+          pipeline that treats its own uncertainty as a first-class signal instead of noise
+          to average away.
+        </p>
+        <div class="moment">
+          The failure case I designed around isn't "the model is wrong" — it's "the model is
+          wrong and sure of it." That's the case that kills people.
+        </div>
+        <p>
+          The system fuses three channels: <strong>semantic segmentation</strong> (SegFormer-B2,
+          fine-tuned on UAVid) to classify terrain, <strong>epistemic uncertainty</strong> via
+          MC Dropout to flag where the model is guessing, and <strong>temporal/label
+          disagreement</strong> across frames to catch spots the model flip-flops on. A
+          candidate zone only qualifies as "safe" when all three agree — confident,
+          consistent classification with low model uncertainty.
+        </p>
+        <p>
+          Tested on UAVid and Aeroscapes, the uncertainty-aware pipeline produced
+          <strong>zero false safe-zone selections</strong>, against a baseline that
+          confidently selected unsafe terrain when segmentation alone was wrong. I'm now
+          extending it into closed-loop simulation with PX4 SITL and Gazebo — early stage,
+          not yet flying autonomously, but the goal is to close the loop from perception to
+          actual descent commands.
+        </p>
+        <div class="tag-row">
+          <span class="tag">SegFormer-B2</span>
+          <span class="tag">MC Dropout</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">UAVid / Aeroscapes</span>
+          <span class="tag">PX4 SITL</span>
+          <span class="tag">Gazebo</span>
+        </div>
+        <p style="margin-top:16px;">
+          <a href="https://github.com/Hananeel-dev/Land_Uncer10/blob/main/README.md" target="_blank" rel="noopener">Full writeup and code on GitHub →</a>
+        </p>
+      </div>
+      <aside class="specs">
+        <dl>
+          <dt>Problem</dt>
+          <dd>Autonomous safe-landing site selection under real-world perception uncertainty</dd>
+          <dt>Approach</dt>
+          <dd>3-channel risk fusion: segmentation + epistemic uncertainty + temporal disagreement</dd>
+          <dt>Datasets</dt>
+          <dd>UAVid, Aeroscapes</dd>
+          <dt>Status</dt>
+          <dd>Core pipeline validated; PX4/Gazebo closed-loop extension in progress</dd>
+        </dl>
+        <div class="result">0 false safe-zone selections<br>vs. failures without uncertainty awareness</div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="vulcan">
+    <div class="section-head">
+      <div class="eyebrow">Project 02 — Powertrain &amp; Mechanical Design</div>
+      <h2>Vulcan — Baja SAE Drivetrain</h2>
+    </div>
+    <div class="project">
+      <div class="story">
+        <p>
+          As Powertrain Engineer and Electrical Lead on our Baja SAE team, I designed the
+          drivetrain for Vulcan, our off-road car: a <strong>4:1 spur gear reduction</strong>
+          feeding a chain-and-sprocket final drive, sized to survive the abuse of an off-road
+          endurance event.
+        </p>
+        <p>
+          The first version of the gearbox I designed worked on paper — and got rejected by
+          the team. It was too bulky and too hard to actually manufacture with the tooling we
+          had. That rejection was the more useful design review: I went back and cut the
+          stage count, moving to a simpler chain-sprocket final drive that solved weight,
+          packaging, and manufacturability at the same time instead of trading one for
+          another.
+        </p>
+        <div class="moment">
+          A design that only works in SolidWorks isn't done. The redesign had to survive our
+          own shop floor, not just an FEA report.
+        </div>
+        <p>
+          The final gearbox was validated in <strong>ANSYS FEA under 90 Nm peak torque</strong>,
+          and I built a microcontroller-based <strong>safety interlock system</strong> to meet
+          SAE E-Baja compliance. Coordinating a 7-person team through fabrication and vendor
+          delays meant the car got built and running — we missed our target competition date
+          because of vendor lead times outside our control, but the drivetrain itself held up.
+        </p>
+        <div class="tag-row">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">ANSYS FEA</span>
+          <span class="tag">Gear Design</span>
+          <span class="tag">Chain/Sprocket Drives</span>
+          <span class="tag">Embedded Safety Systems</span>
+        </div>
+      </div>
+      <aside class="specs">
+        <dl>
+          <dt>Role</dt>
+          <dd>Powertrain Engineer &amp; Electrical Lead</dd>
+          <dt>Reduction</dt>
+          <dd>4:1 spur gear stage + chain/sprocket final drive</dd>
+          <dt>Validation</dt>
+          <dd>ANSYS FEA, 90 Nm peak torque</dd>
+          <dt>Team</dt>
+          <dd>7 members, cross-discipline coordination</dd>
+        </dl>
+        <div class="result">Redesigned after rejection<br>for weight, packaging &amp; manufacturability</div>
+      </aside>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">From the build</span>
+      <div class="gallery-grid">
+        <figure>
+          <img src="img/vulcan-cad-assembly.png" alt="SolidWorks CAD assembly of the 4:1 spur gear reduction stage" loading="lazy">
+          <figcaption>SolidWorks assembly — 4:1 spur gear reduction stage</figcaption>
+        </figure>
+        <figure>
+          <img src="img/vulcan-fea-stress.jpg" alt="ANSYS von Mises stress contour on the final drive gear mesh" loading="lazy">
+          <figcaption>Von Mises stress across the gear mesh, ANSYS Static Structural</figcaption>
+        </figure>
+        <figure>
+          <img src="img/vulcan-fea-safety.jpg" alt="ANSYS safety factor contour on the gearbox" loading="lazy">
+          <figcaption>Safety factor distribution — this run flagged a sub-1.0 fillet zone, the finding that drove the next design iteration</figcaption>
+        </figure>
+        <figure>
+          <img src="img/vulcan-fea-sweep.jpg" alt="Mesh convergence parameter sweep chart" loading="lazy">
+          <figcaption>Mesh convergence sweep — element size vs. peak stress</figcaption>
+        </figure>
+        <figure>
+          <img src="img/vulcan-wiring.jpg" alt="Electrical wiring and safety interlock diagram" loading="lazy">
+          <figcaption>Power distribution &amp; safety interlock wiring diagram</figcaption>
+        </figure>
+        <figure>
+          <img src="img/vulcan-build-1.jpg" alt="Vulcan drivetrain assembly on the car" loading="lazy">
+          <figcaption>Drivetrain assembly — chain/sprocket final drive, installed</figcaption>
+        </figure>
+        <figure>
+          <img src="img/vulcan-build-2.jpg" alt="Vulcan rear electrical bay with battery pack and e-stops" loading="lazy">
+          <figcaption>Rear electrical bay — battery pack, e-stops, interlocks</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="ceeri">
+    <div class="section-head">
+      <div class="eyebrow">Project 03 — Physiological Signal Processing</div>
+      <h2>Real-Time ECG Peak Detection</h2>
+    </div>
+    <div class="project">
+      <div class="story">
+        <p>
+          At CSIR-CEERI, my contribution to a larger sensor-fusion system was the
+          physiological monitoring pipeline: cleaning raw ECG, detecting heartbeats in
+          real time, and deriving heart-rate variability (HRV) from them. The intended
+          application is need-to-know, so I'm not sharing that context, the team's data,
+          or the system's results here.
+        </p>
+        <p>
+          What I can show is the algorithm work itself, run against public ECG data. I
+          wrote a custom QRS (heartbeat) detector, an extended version of the classic
+          Pan-Tompkins method, and benchmarked it against NeuroKit2, a widely used
+          open-source ECG library, on the MIT-BIH Noise Stress Test Database.
+        </p>
+        <div class="moment">
+          NeuroKit2 would occasionally "detect" a heartbeat in a flat, noisy stretch of
+          signal where there wasn't one, nowhere near any real QRS complex. Pan-Tompkins++
+          didn't take the bait in the same spots.
+        </div>
+        <p>
+          On the MIT-BIH NSTDB benchmark, Pan-Tompkins++ hit <strong>98.8% R-peak detection
+          accuracy versus 81.7% for NeuroKit2</strong> — a 17-point gap. The plots below show
+          five representative cases: NeuroKit2 places a peak mid-baseline, off by
+          700–800&nbsp;ms from the nearest real beat, while Pan-Tompkins++ stays correctly
+          silent or locks onto the true QRS complex.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Pan-Tompkins++</span>
+          <span class="tag">QRS Detection</span>
+          <span class="tag">Python</span>
+          <span class="tag">NeuroKit2 Benchmark</span>
+          <span class="tag">MIT-BIH NSTDB</span>
+        </div>
+      </div>
+      <aside class="specs">
+        <dl>
+          <dt>Org</dt>
+          <dd>CSIR-CEERI</dd>
+          <dt>My scope</dt>
+          <dd>Real-time ECG/HRV processing pipeline</dd>
+          <dt>Shown here</dt>
+          <dd>Custom QRS detector, benchmarked on public data only</dd>
+          <dt>Withheld</dt>
+          <dd>Application context, team data, and system-level results</dd>
+        </dl>
+        <div class="result">98.8% vs. 81.7%<br>R-peak accuracy, Pan-Tompkins++ vs. NeuroKit2 (MIT-BIH NSTDB)</div>
+      </aside>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">NeuroKit2 vs. Pan-Tompkins++ — public dataset benchmark</span>
+      <div class="gallery-grid">
+        <figure>
+          <img src="img/pt-hallucination-1.png" alt="NeuroKit2 hallucinated peak, case 1, 781 ms from nearest ground truth beat" loading="lazy">
+          <figcaption>Case 1 — NeuroKit2 peak 781 ms from nearest real beat; Pan-Tompkins++ correctly tracks true QRS complexes</figcaption>
+        </figure>
+        <figure>
+          <img src="img/pt-hallucination-3.png" alt="NeuroKit2 hallucinated peak, case 3, in a noisy baseline segment" loading="lazy">
+          <figcaption>Case 3 — NeuroKit2 mid-baseline false peak in a noisier segment</figcaption>
+        </figure>
+        <figure>
+          <img src="img/pt-hallucination-5.png" alt="NeuroKit2 hallucinated peak, case 5, 739 ms from nearest ground truth beat" loading="lazy">
+          <figcaption>Case 5 — NeuroKit2 peak 739 ms from nearest real beat, flat baseline</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <div class="eyebrow">Background</div>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <h3>Education</h3>
+        <p>B.E. Mechanical Engineering, BITS Pilani, Hyderabad Campus — Expected August 2028.</p>
+      </div>
+      <div>
+        <h3>Experience</h3>
+        <p>Research Intern, CSIR-CEERI (May–Jul 2026) &nbsp;·&nbsp; Powertrain Engineer &amp; Electrical Lead, Baja SAE (Apr 2025–present)</p>
+      </div>
+      <div>
+        <h3>Tools</h3>
+        <p>SolidWorks, ANSYS, Python, PyTorch, MATLAB, Embedded C/Arduino</p>
+      </div>
+      <div>
+        <h3>Currently</h3>
+        <p>Extending the UAV pipeline into closed-loop simulation, and scoping a self-landing model rocket project (Kalman filtering → TVC).</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Hananeel Ephraim Mandam — Mechanical Engineering, BITS Pilani Hyderabad</span>
+    <span>f20240697@hyderabad.bits-pilani.ac.in</span>
+  </footer>
+
+</div>
+</body>
+</html>
