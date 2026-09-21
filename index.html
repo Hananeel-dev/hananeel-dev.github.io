@@ -223,8 +223,8 @@
     <div class="role">B.E. Mechanical Engineering, BITS Pilani Hyderabad &nbsp;·&nbsp; Expected Aug 2028</div>
     <p class="lede">
       I build things that have to work under load and under uncertainty — a drivetrain that
-      survives a race, a perception pipeline that survives being wrong. Three projects below:
-      a shop floor, a GPU, and a signal processing bench.
+      survives a race, a perception pipeline that survives being wrong. Four projects below:
+      a shop floor, a GPU, a CFD solver, and a signal processing bench.
     </p>
     <div class="contact-row">
       <a href="mailto:f20240697@hyderabad.bits-pilani.ac.in">f20240697@hyderabad.bits-pilani.ac.in</a>
@@ -387,9 +387,86 @@
     </div>
   </section>
 
+  <section id="aero">
+    <div class="section-head">
+      <div class="eyebrow">Project 03 — Computational Fluid Dynamics</div>
+      <h2>Ground-Effect Wing Aerodynamics (In Progress)</h2>
+    </div>
+    <div class="project">
+      <div class="story">
+        <p>
+          For my Aerodynamics coursework, I'm running a ground-effect study on an
+          inverted single-element wing, framed around F1-style front/rear wing
+          aerodynamics: how downforce and the flow separation point change with ride
+          height above the ground plane.
+        </p>
+        <p>
+          Before running that geometry, I'm validating my CFD workflow on a known
+          airfoil, the NACA 6412, in ANSYS Fluent. The plots below are from that
+          validation sweep: mesh and contours for turbulent viscosity ratio, static
+          pressure, and velocity magnitude, plus the lift and drag coefficients I'm
+          logging across the angle-of-attack range.
+        </p>
+        <div class="moment">
+          This part isn't the headline result, it's me making sure the mesh, solver
+          settings, and convergence behavior are trustworthy before I trust them on
+          the actual wing geometry.
+        </div>
+        <p>
+          Still running cases. Once the airfoil sweep is validated, the ground-effect
+          wing model and the ride-height study are next.
+        </p>
+        <div class="tag-row">
+          <span class="tag">ANSYS Fluent</span>
+          <span class="tag">RANS CFD</span>
+          <span class="tag">NACA 6412</span>
+          <span class="tag">Ground Effect Aerodynamics</span>
+        </div>
+      </div>
+      <aside class="specs">
+        <dl>
+          <dt>Course</dt>
+          <dd>Principles of Aerodynamics</dd>
+          <dt>Validation case</dt>
+          <dd>NACA 6412 airfoil, angle-of-attack sweep</dd>
+          <dt>Next</dt>
+          <dd>Inverted single-element wing, ground-effect ride-height study</dd>
+          <dt>Status</dt>
+          <dd>In progress — validation sweep running</dd>
+        </dl>
+      </aside>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">NACA 6412 CFD validation sweep</span>
+      <div class="gallery-grid">
+        <figure>
+          <img src="img/aero-viscosity-contour.jpg" alt="Turbulent viscosity ratio contour on NACA 6412 airfoil mesh" loading="lazy">
+          <figcaption>Turbulent viscosity ratio contour, ANSYS Fluent</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aero-pressure-contour.jpg" alt="Static pressure contour on NACA 6412 airfoil mesh" loading="lazy">
+          <figcaption>Static pressure contour</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aero-velocity-contour.jpg" alt="Velocity magnitude contour on NACA 6412 airfoil mesh" loading="lazy">
+          <figcaption>Velocity magnitude contour</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aero-data-table.jpg" alt="Table of Cl, Cd, and Cl/Cd values across angle of attack sweep" loading="lazy">
+          <figcaption>Cl, Cd, and Cl/Cd logged across the angle-of-attack sweep</figcaption>
+        </figure>
+        <figure>
+          <img src="img/aero-fluent-setup.jpg" alt="ANSYS Fluent solver setup and mesh domain" loading="lazy">
+          <figcaption>Solver setup and computational domain in Fluent</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section id="ceeri">
     <div class="section-head">
-      <div class="eyebrow">Project 03 — Physiological Signal Processing</div>
+      <div class="eyebrow">Project 04 — Physiological Signal Processing</div>
       <h2>Real-Time ECG Peak Detection</h2>
     </div>
     <div class="project">
