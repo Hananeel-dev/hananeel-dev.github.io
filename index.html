@@ -413,8 +413,13 @@
           the actual wing geometry.
         </div>
         <p>
-          Still running cases. Once the airfoil sweep is validated, the ground-effect
-          wing model and the ride-height study are next.
+          The sweep ran from &minus;12&deg; to +4&deg; on the inverted wing. In the linear range the
+          lift slope came out at <strong>0.101 per degree</strong>, and the zero-lift angle landed within
+          <strong>0.3&deg; of thin-airfoil theory</strong>. Peak L/D was 62. It stalls between &minus;10&deg; and
+          &minus;12&deg;, where steady RANS stops being trustworthy, so I'm not leaning on the post-stall numbers.
+          Wall y+ stays within the viscous sublayer across the surface. Drag runs higher than
+          XFOIL, which is expected: SST treats the whole boundary layer as turbulent. The ground-effect
+          ride-height study is next.
         </p>
         <div class="tag-row">
           <span class="tag">ANSYS Fluent</span>
@@ -428,12 +433,13 @@
           <dt>Course</dt>
           <dd>Principles of Aerodynamics</dd>
           <dt>Validation case</dt>
-          <dd>NACA 6412 airfoil, angle-of-attack sweep</dd>
+          <dd>Inverted NACA 6412, 2D RANS (k-&omega; SST), &minus;12&deg; to +4&deg;</dd>
           <dt>Next</dt>
           <dd>Inverted single-element wing, ground-effect ride-height study</dd>
           <dt>Status</dt>
-          <dd>In progress, validation sweep running</dd>
+          <dd>AoA sweep done, wall y+ verified; ride-height study next</dd>
         </dl>
+        <div class="result">Zero-lift angle within 0.3&deg;<br>of thin-airfoil theory; peak L/D 62</div>
       </aside>
     </div>
 
