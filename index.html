@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hananeel Mandam</title>
-<meta name="description" content="Portfolio: UAV emergency landing perception, Baja SAE drivetrain, ground-effect CFD, and real-time ECG signal processing.">
+<meta name="description" content="Portfolio — UAV emergency landing perception, thrust vector control gimbal design, Baja SAE drivetrain, CFD, and real-time ECG signal processing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -218,39 +218,39 @@
 <div class="wrap">
 
   <header class="hero">
-    <div class="eyebrow">Portfolio · Mechanical Engineering</div>
+    <div class="eyebrow">Portfolio — Mechanical Engineering</div>
     <h1>Hananeel Ephraim Mandam</h1>
-    <div class="role">B.E. Mechanical Engineering, BITS Pilani Hyderabad &nbsp;·&nbsp; Expected 2028</div>
+    <div class="role">B.E. Mechanical Engineering, BITS Pilani Hyderabad &nbsp;·&nbsp; Expected Aug 2028</div>
     <p class="lede">
-      I build things that have to work under load and under uncertainty: a drivetrain sized
-      for 90 Nm of peak torque, and a perception pipeline that knows when it might be wrong. Four projects below:
-      a shop floor, a GPU, a CFD solver, and a signal processing bench.
+      I build things that have to work under load and under uncertainty — a drivetrain that
+      survives a race, a perception pipeline that survives being wrong. Five projects below:
+      a GPU, a gimbal on my desk, a shop floor, a CFD solver, and a signal processing bench.
     </p>
     <div class="contact-row">
-      <a href="mailto:hananeel.ephraim@gmail.com">hananeel.ephraim@gmail.com</a>
+      <a href="mailto:f20240697@hyderabad.bits-pilani.ac.in">f20240697@hyderabad.bits-pilani.ac.in</a>
       <a href="https://www.linkedin.com/in/hananeel-ephraim-205b00319/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/Hananeel-dev" target="_blank" rel="noopener">GitHub</a>
       <a href="files/Hananeel_Mandam_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
-      <span style="color:var(--ink-soft)">US Citizen · Eligible for security clearance · Open to Summer 2027 internships</span>
+      <span style="color:var(--ink-soft)">Open to Summer 2027 internships</span>
     </div>
   </header>
 
   <section id="uav">
     <div class="section-head">
-      <div class="eyebrow">Project 01 · Perception &amp; Safety</div>
+      <div class="eyebrow">Project 01 — Perception &amp; Safety</div>
       <h2>Emergency Landing Zone Selection for UAVs</h2>
     </div>
     <div class="project">
       <div class="story">
         <p>
           A UAV that loses power mid-flight has seconds to pick a landing spot. Most vision
-          pipelines answer "what's down there" and stop. They'll call a spot safe because a
+          pipelines answer "what's down there" and stop — they'll call a spot safe because a
           segmentation model was confident, even when that confidence is wrong. I built a
           pipeline that treats its own uncertainty as a first-class signal instead of noise
           to average away.
         </p>
         <div class="moment">
-          The failure case I designed around isn't "the model is wrong." It's "the model is
+          The failure case I designed around isn't "the model is wrong" — it's "the model is
           wrong and sure of it." That's the case that kills people.
         </div>
         <p>
@@ -258,15 +258,15 @@
           fine-tuned on UAVid) to classify terrain, <strong>epistemic uncertainty</strong> via
           MC Dropout to flag where the model is guessing, and <strong>temporal/label
           disagreement</strong> across frames to catch spots the model flip-flops on. A
-          candidate zone only qualifies as "safe" when all three agree: confident,
+          candidate zone only qualifies as "safe" when all three agree — confident,
           consistent classification with low model uncertainty.
         </p>
         <p>
           Tested on UAVid and Aeroscapes, the uncertainty-aware pipeline produced
           <strong>zero false safe-zone selections</strong>, against a baseline that
           confidently selected unsafe terrain when segmentation alone was wrong. I'm now
-          extending it into closed-loop simulation with PX4 SITL and Gazebo. It's early and
-          not flying autonomously yet. The goal is to close the loop from perception to
+          extending it into closed-loop simulation with PX4 SITL and Gazebo — early stage,
+          not yet flying autonomously, but the goal is to close the loop from perception to
           actual descent commands.
         </p>
         <div class="tag-row">
@@ -297,10 +297,80 @@
     </div>
   </section>
 
+  <section id="tvc">
+    <div class="section-head">
+      <div class="eyebrow">Project 02 — Thrust Vector Control</div>
+      <h2>TVC Gimbal for an EDF Hopper (In Progress)</h2>
+    </div>
+    <div class="project">
+      <div class="story">
+        <p>
+          The first gimbal I designed had its servos hanging under the fan. Then I worked out
+          where the exhaust goes at full tilt. The plume grazed both servos, right when the
+          controller would be working hardest. They moved above the rings.
+        </p>
+        <p>
+          This is the engine module for a self-landing vehicle I'm building on a
+          <strong>₹20,000 budget</strong>: a two-axis gimbal that swings a full 70&nbsp;mm
+          electric ducted fan <strong>±10°</strong> on both axes. Three concentric rings carry
+          the fan, driven by two servos through a <strong>~3:1 linkage</strong>, so servo
+          slop shrinks by the same factor at the fan.
+        </p>
+        <div class="moment">
+          CAD caught the problem before the printer did. The rigid pitch pushrod jammed the
+          yaw axis, because yawing tilts the pitch tab out of line with its servo. An
+          hourglass-shaped pivot hole lets the rod tilt without adding play.
+        </div>
+        <p>
+          The servo cradles are printed into the mount, so one rigid part locates the servos
+          and the gimbal, and the linkage comes out exactly as designed. The whole module
+          connects to anything through <strong>four lugs</strong>: a reusable test stand now,
+          the airframe later. Nothing is printed or flying yet. Next is printing, then a live
+          demo of the gimbal following a hand-held IMU, driven by an ESP32.
+        </p>
+        <div class="tag-row">
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Linkage Kinematics</span>
+          <span class="tag">Thrust Vector Control</span>
+          <span class="tag">Interference Analysis</span>
+          <span class="tag">ESP32</span>
+          <span class="tag">3D Printing</span>
+        </div>
+      </div>
+      <aside class="specs">
+        <dl>
+          <dt>Problem</dt>
+          <dd>Steer the full thrust of a 70 mm EDF for attitude control on a self-landing vehicle</dd>
+          <dt>Approach</dt>
+          <dd>Full-fan 2-axis ring gimbal, MG996R servos via ~3:1 pushrod linkage</dd>
+          <dt>Constraint</dt>
+          <dd>₹20k total project budget, free workshop PLA printing</dd>
+          <dt>Status</dt>
+          <dd>Module CAD complete and motion-checked; printing next</dd>
+        </dl>
+        <div class="result">±10° on two axes<br>no interference at full tilt in CAD</div>
+      </aside>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">Engine module, SolidWorks</span>
+      <div class="gallery-grid">
+        <figure>
+          <img src="img/tvc-gimbal-iso.png" alt="Isometric view of the TVC gimbal module with EDF, three rings, two servos and linkages" loading="lazy">
+          <figcaption>Full module: fan in three rings, servos on cradles printed into the mount</figcaption>
+        </figure>
+        <figure>
+          <img src="img/tvc-gimbal-linkage.png" alt="Side view of a servo horn and pushrod driving a gimbal tab" loading="lazy">
+          <figcaption>Servo horn and 18 mm pushrod driving a ring tab, roughly 3:1</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section id="vulcan">
     <div class="section-head">
-      <div class="eyebrow">Project 02 · Powertrain &amp; Mechanical Design</div>
-      <h2>Vulcan: Baja SAE Drivetrain</h2>
+      <div class="eyebrow">Project 03 — Powertrain &amp; Mechanical Design</div>
+      <h2>Vulcan — Baja SAE Drivetrain</h2>
     </div>
     <div class="project">
       <div class="story">
@@ -311,7 +381,7 @@
           endurance event.
         </p>
         <p>
-          The first version of the gearbox I designed worked on paper and got rejected by
+          The first version of the gearbox I designed worked on paper — and got rejected by
           the team. It was too bulky and too hard to actually manufacture with the tooling we
           had. That rejection was the more useful design review: I went back and cut the
           stage count, moving to a simpler chain-sprocket final drive that solved weight,
@@ -326,8 +396,8 @@
           The final gearbox was validated in <strong>ANSYS FEA under 90 Nm peak torque</strong>,
           and I built a microcontroller-based <strong>safety interlock system</strong> to meet
           SAE E-Baja compliance. Coordinating a 7-person team through fabrication and vendor
-          delays meant the car got built and running. We still missed competition because of
-          vendor lead times outside our control, but the drivetrain itself held up.
+          delays meant the car got built and running — we missed our target competition date
+          because of vendor lead times outside our control, but the drivetrain itself held up.
         </p>
         <div class="tag-row">
           <span class="tag">SolidWorks</span>
@@ -357,7 +427,7 @@
       <div class="gallery-grid">
         <figure>
           <img src="img/vulcan-cad-assembly.png" alt="SolidWorks CAD assembly of the 4:1 spur gear reduction stage" loading="lazy">
-          <figcaption>SolidWorks assembly: 4:1 spur gear reduction stage</figcaption>
+          <figcaption>SolidWorks assembly — 4:1 spur gear reduction stage</figcaption>
         </figure>
         <figure>
           <img src="img/vulcan-fea-stress.jpg" alt="ANSYS von Mises stress contour on the final drive gear mesh" loading="lazy">
@@ -365,11 +435,11 @@
         </figure>
         <figure>
           <img src="img/vulcan-fea-safety.jpg" alt="ANSYS safety factor contour on the gearbox" loading="lazy">
-          <figcaption>Safety factor distribution. This run flagged a sub-1.0 fillet zone, the finding that drove the next design iteration</figcaption>
+          <figcaption>Safety factor distribution — this run flagged a sub-1.0 fillet zone, the finding that drove the next design iteration</figcaption>
         </figure>
         <figure>
           <img src="img/vulcan-fea-sweep.jpg" alt="Mesh convergence parameter sweep chart" loading="lazy">
-          <figcaption>Mesh convergence sweep: element size vs. peak stress</figcaption>
+          <figcaption>Mesh convergence sweep — element size vs. peak stress</figcaption>
         </figure>
         <figure>
           <img src="img/vulcan-wiring.jpg" alt="Electrical wiring and safety interlock diagram" loading="lazy">
@@ -377,11 +447,11 @@
         </figure>
         <figure>
           <img src="img/vulcan-build-1.jpg" alt="Vulcan drivetrain assembly on the car" loading="lazy">
-          <figcaption>Drivetrain assembly: chain/sprocket final drive, installed</figcaption>
+          <figcaption>Drivetrain assembly — chain/sprocket final drive, installed</figcaption>
         </figure>
         <figure>
           <img src="img/vulcan-build-2.jpg" alt="Vulcan rear electrical bay with battery pack and e-stops" loading="lazy">
-          <figcaption>Rear electrical bay: battery pack, e-stops, interlocks</figcaption>
+          <figcaption>Rear electrical bay — battery pack, e-stops, interlocks</figcaption>
         </figure>
       </div>
     </div>
@@ -389,7 +459,7 @@
 
   <section id="aero">
     <div class="section-head">
-      <div class="eyebrow">Project 03 · Computational Fluid Dynamics</div>
+      <div class="eyebrow">Project 04 — Computational Fluid Dynamics</div>
       <h2>Ground-Effect Wing Aerodynamics (In Progress)</h2>
     </div>
     <div class="project">
@@ -413,13 +483,8 @@
           the actual wing geometry.
         </div>
         <p>
-          The sweep ran from &minus;12&deg; to +4&deg; on the inverted wing. In the linear range the
-          lift slope came out at <strong>0.101 per degree</strong>, and the zero-lift angle landed within
-          <strong>0.3&deg; of thin-airfoil theory</strong>. Peak L/D was 62. It stalls between &minus;10&deg; and
-          &minus;12&deg;, where steady RANS stops being trustworthy, so I'm not leaning on the post-stall numbers.
-          Wall y+ stays within the viscous sublayer across the surface. Drag runs higher than
-          XFOIL, which is expected: SST treats the whole boundary layer as turbulent. The ground-effect
-          ride-height study is next.
+          Still running cases. Once the airfoil sweep is validated, the ground-effect
+          wing model and the ride-height study are next.
         </p>
         <div class="tag-row">
           <span class="tag">ANSYS Fluent</span>
@@ -433,13 +498,12 @@
           <dt>Course</dt>
           <dd>Principles of Aerodynamics</dd>
           <dt>Validation case</dt>
-          <dd>Inverted NACA 6412, 2D RANS (k-&omega; SST), &minus;12&deg; to +4&deg;</dd>
+          <dd>NACA 6412 airfoil, angle-of-attack sweep</dd>
           <dt>Next</dt>
           <dd>Inverted single-element wing, ground-effect ride-height study</dd>
           <dt>Status</dt>
-          <dd>AoA sweep done, wall y+ verified; ride-height study next</dd>
+          <dd>In progress — validation sweep running</dd>
         </dl>
-        <div class="result">Zero-lift angle within 0.3&deg;<br>of thin-airfoil theory; peak L/D 62</div>
       </aside>
     </div>
 
@@ -472,7 +536,7 @@
 
   <section id="ceeri">
     <div class="section-head">
-      <div class="eyebrow">Project 04 · Physiological Signal Processing</div>
+      <div class="eyebrow">Project 05 — Physiological Signal Processing</div>
       <h2>Real-Time ECG Peak Detection</h2>
     </div>
     <div class="project">
@@ -496,8 +560,8 @@
           didn't take the bait in the same spots.
         </div>
         <p>
-          On the MIT-BIH NSTDB benchmark at 24 dB and 18 dB SNR, Pan-Tompkins++ hit
-          <strong>98.8% R-peak detection accuracy versus 81.7% for NeuroKit2</strong>. The plots below show
+          On the MIT-BIH NSTDB benchmark, Pan-Tompkins++ hit <strong>98.8% R-peak detection
+          accuracy versus 81.7% for NeuroKit2</strong> — a 17-point gap. The plots below show
           five representative cases: NeuroKit2 places a peak mid-baseline, off by
           700–800&nbsp;ms from the nearest real beat, while Pan-Tompkins++ stays correctly
           silent or locks onto the true QRS complex.
@@ -521,24 +585,24 @@
           <dt>Withheld</dt>
           <dd>Application context, team data, and system-level results</dd>
         </dl>
-        <div class="result">98.8% vs. 81.7%<br>R-peak accuracy, Pan-Tompkins++ vs. NeuroKit2 (MIT-BIH NSTDB, 24 and 18 dB SNR)</div>
+        <div class="result">98.8% vs. 81.7%<br>R-peak accuracy, Pan-Tompkins++ vs. NeuroKit2 (MIT-BIH NSTDB)</div>
       </aside>
     </div>
 
     <div class="gallery">
-      <span class="eyebrow">NeuroKit2 vs. Pan-Tompkins++ · public dataset benchmark</span>
+      <span class="eyebrow">NeuroKit2 vs. Pan-Tompkins++ — public dataset benchmark</span>
       <div class="gallery-grid">
         <figure>
           <img src="img/pt-hallucination-1.png" alt="NeuroKit2 hallucinated peak, case 1, 781 ms from nearest ground truth beat" loading="lazy">
-          <figcaption>Case 1: NeuroKit2 peak 781 ms from nearest real beat; Pan-Tompkins++ correctly tracks true QRS complexes</figcaption>
+          <figcaption>Case 1 — NeuroKit2 peak 781 ms from nearest real beat; Pan-Tompkins++ correctly tracks true QRS complexes</figcaption>
         </figure>
         <figure>
           <img src="img/pt-hallucination-3.png" alt="NeuroKit2 hallucinated peak, case 3, in a noisy baseline segment" loading="lazy">
-          <figcaption>Case 3: NeuroKit2 mid-baseline false peak in a noisier segment</figcaption>
+          <figcaption>Case 3 — NeuroKit2 mid-baseline false peak in a noisier segment</figcaption>
         </figure>
         <figure>
           <img src="img/pt-hallucination-5.png" alt="NeuroKit2 hallucinated peak, case 5, 739 ms from nearest ground truth beat" loading="lazy">
-          <figcaption>Case 5: NeuroKit2 peak 739 ms from nearest real beat, flat baseline</figcaption>
+          <figcaption>Case 5 — NeuroKit2 peak 739 ms from nearest real beat, flat baseline</figcaption>
         </figure>
       </div>
     </div>
@@ -552,26 +616,26 @@
     <div class="about-grid">
       <div>
         <h3>Education</h3>
-        <p>B.E. Mechanical Engineering, BITS Pilani, Hyderabad Campus. Expected 2028.</p>
+        <p>B.E. Mechanical Engineering, BITS Pilani, Hyderabad Campus — Expected August 2028.</p>
       </div>
       <div>
         <h3>Experience</h3>
-        <p>Research Intern, CSIR-CEERI (May–Jul 2026) &nbsp;·&nbsp; Powertrain Engineer &amp; Electrical Lead, Baja SAE (Apr 2025–Apr 2026)</p>
+        <p>Research Intern, CSIR-CEERI (May–Jul 2026) &nbsp;·&nbsp; Powertrain Engineer &amp; Electrical Lead, Baja SAE (Apr 2025–present)</p>
       </div>
       <div>
         <h3>Tools</h3>
-        <p>SolidWorks, ANSYS (Mechanical, Fluent), Python, PyTorch, MATLAB, Embedded C/Arduino</p>
+        <p>SolidWorks, ANSYS, Python, PyTorch, MATLAB, Embedded C/Arduino</p>
       </div>
       <div>
         <h3>Currently</h3>
-        <p>Extending the UAV pipeline into closed-loop simulation, and scoping a self-landing model rocket project (Kalman filtering → TVC).</p>
+        <p>Printing the TVC gimbal for a self-landing EDF vehicle, and extending the UAV pipeline into closed-loop simulation.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <span>Hananeel Ephraim Mandam · Mechanical Engineering, BITS Pilani Hyderabad</span>
-    <span>hananeel.ephraim@gmail.com</span>
+    <span>Hananeel Ephraim Mandam — Mechanical Engineering, BITS Pilani Hyderabad</span>
+    <span>f20240697@hyderabad.bits-pilani.ac.in</span>
   </footer>
 
 </div>
