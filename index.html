@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hananeel Mandam</title>
-<meta name="description" content="Portfolio: thrust vector control gimbal design, UAV emergency landing perception, Baja SAE drivetrain, ground-effect CFD, vision-based inspection, and real-time ECG signal processing.">
+<meta name="description" content="Portfolio: thrust vector control gimbal design, UAV emergency landing perception, Baja SAE drivetrain, F1 rear-wing CFD reproduction, vision-based inspection, and real-time ECG signal processing.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hananeel-dev.github.io/">
 <meta property="og:title" content="Hananeel Ephraim Mandam | Mechanical Engineering Portfolio">
-<meta property="og:description" content="Thrust vector control gimbal, Baja SAE drivetrain and safety interlock, ground-effect wing CFD, UAV landing perception, vision-based inspection, and ECG signal processing.">
+<meta property="og:description" content="Thrust vector control gimbal, Baja SAE drivetrain and safety interlock, F1 rear-wing airfoil CFD reproduction, UAV landing perception, vision-based inspection, and ECG signal processing.">
 <meta property="og:image" content="https://hananeel-dev.github.io/img/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
@@ -215,6 +215,17 @@
     background:#fff;
     height:170px;
   }
+  .gallery + .gallery{margin-top:26px;}
+  .gallery-grid.wide{grid-template-columns:1fr 1fr;}
+  .gallery-grid.wide img{object-fit:contain;background:#fff;height:280px;}
+  @media (max-width:640px){
+    .gallery-grid.wide{grid-template-columns:1fr;}
+    .gallery-grid.wide img{height:220px;}
+  }
+  .gallery-grid.two{grid-template-columns:1fr 1fr;}
+  .gallery-grid.two img{height:220px;}
+  .gallery-grid figure a{display:block;}
+  .gallery-grid figure a:hover img{opacity:.88;}
 
   footer{
     padding-block:36px 48px;
@@ -306,7 +317,7 @@
           <dt>Status</dt>
           <dd>Core pipeline validated; PX4/Gazebo closed-loop extension in progress</dd>
         </dl>
-        <div class="result">0 false safe-zone selections<br>vs. failures without uncertainty awareness</div>
+        <div class="result">0 false safe-zone selections<br>It never picked unsafe ground to land on</div>
       </aside>
     </div>
   </section>
@@ -372,7 +383,7 @@
           <dt>Status</dt>
           <dd>CAD complete and interference-checked; servos bench-tested; printing next</dd>
         </dl>
-        <div class="result">11 tilt and vane configurations<br>2 collisions found and fixed before printing</div>
+        <div class="result">2 collisions found across 11 configurations<br>Fixed on screen, before anything was printed</div>
       </aside>
     </div>
 
@@ -425,11 +436,12 @@
           own shop floor, not just an FEA report.
         </div>
         <p>
-          The final gearbox was validated in <strong>ANSYS FEA under 90 Nm peak torque</strong>,
-          and I built a microcontroller-based <strong>safety interlock system</strong> to meet
-          SAE E-Baja compliance. Coordinating a 7-person team through fabrication and vendor
-          delays meant the car got built and running. We still missed competition because of
-          vendor lead times outside our control, but the drivetrain itself held up.
+          Running the gearbox in <strong>ANSYS FEA at 90 Nm peak torque</strong> caught a fillet
+          below a safety factor of 1.0. In plain terms: that part would have failed under full
+          load, and we found it on screen instead of on the trail. I iterated the geometry before
+          fabrication. I also built the microcontroller-based <strong>safety interlock</strong> from
+          scratch to SAE E-Baja rules and coordinated a 7-person team through fabrication and
+          vendor timelines. We missed competition because of vendor lead times outside our control.
         </p>
         <div class="tag-row">
           <span class="tag">SolidWorks</span>
@@ -450,7 +462,7 @@
           <dt>Team</dt>
           <dd>7 members, cross-discipline coordination</dd>
         </dl>
-        <div class="result">Redesigned after rejection<br>for weight, packaging &amp; manufacturability</div>
+        <div class="result">Sub-1.0 safety factor caught at 90 Nm<br>A part that would have broken, found before fabrication</div>
       </aside>
     </div>
 
@@ -492,81 +504,159 @@
   <section id="aero">
     <div class="section-head">
       <div class="eyebrow">Project 04 · Computational Fluid Dynamics</div>
-      <h2>Ground-Effect Wing Aerodynamics (In Progress)</h2>
+      <h2>Inverted Airfoil CFD: Reproducing an F1 Rear-Wing Study</h2>
     </div>
     <div class="project">
       <div class="story">
         <p>
-          For my Aerodynamics coursework, I'm running a ground-effect study on an
-          inverted single-element wing, framed around F1-style front/rear wing
-          aerodynamics: how downforce and the flow separation point change with ride
-          height above the ground plane.
+          For Principles of Aerodynamics, I took a published CFD paper (Yaser &amp; Das, 2025) and
+          rebuilt it from scratch in ANSYS Fluent. It compares two rear-wing airfoils, the
+          <strong>S1223</strong> and the <strong>FX 63-137</strong>, mounted upside down to make downforce.
+          The question was simple: does the paper's answer hold up when someone else runs it?
         </p>
         <p>
-          Before running that geometry, I'm validating my CFD workflow on a known
-          airfoil, the NACA 6412, in ANSYS Fluent. The plots below are from that
-          validation sweep: mesh and contours for turbulent viscosity ratio, static
-          pressure, and velocity magnitude, plus the lift and drag coefficients I'm
-          logging across the angle-of-attack range.
+          It mostly does. On the FX 63-137, my best lift-to-drag ratio came out at
+          <strong>&minus;71.8 vs. the paper's &minus;70.6</strong>, within 2%, and lift matched within
+          2&ndash;6% at every angle. My S1223 makes 7&ndash;11% less downforce and up to 27% more drag
+          than the paper reports, but the ranking is the same: the FX 63-137 is the better wing.
+          In plain terms, I can confirm which airfoil wins. I don't claim the margin, because mine
+          is much larger than theirs.
         </p>
         <div class="moment">
-          This part isn't the headline result, it's me making sure the mesh, solver
-          settings, and convergence behavior are trustworthy before I trust them on
-          the actual wing geometry.
+          At +4&deg; the S1223 result looked wrong. Downforce collapsed and drag jumped about 4&times;.
+          Instead of throwing it out, I re-ran it from a clean start and on a second mesh. It held:
+          the flow separates off the S1223's curved surface. The paper doesn't report this.
         </div>
         <p>
-          The sweep ran from &minus;12&deg; to +4&deg; on the inverted wing. In the linear range the
-          lift slope came out at <strong>0.101 per degree</strong>, and the zero-lift angle landed within
-          <strong>0.3&deg; of thin-airfoil theory</strong>. Peak L/D was 62. It stalls between &minus;10&deg; and
-          &minus;12&deg;, where steady RANS stops being trustworthy, so I'm not leaning on the post-stall numbers.
-          Wall y+ stays within the viscous sublayer across the surface. Drag runs higher than
-          XFOIL, which is expected: SST treats the whole boundary layer as turbulent. The ground-effect
-          ride-height study is next.
+          Getting there took real debugging. The mesher kept running away, eating memory until the
+          PC crashed. I found the cause by bisection, switching mesh controls off one at a time and
+          testing the leading and trailing edges separately: the airfoils' razor-thin cusped trailing
+          edge. I wrote a Python script that converts the coordinate files into SpaceClaim geometry and
+          adds a 0.5 mm blunt trailing edge, a standard CFD fix. Then I automated the 9-angle sweep with
+          Workbench design points, so all <strong>18 cases</strong> ran unattended.
+        </p>
+        <p>
+          Why trust the numbers: wall y+ stays below 1 on both airfoils, and halving the cell size
+          changed L/D by 0.3% (S1223) and 2.7% (FX 63-137). Honest limits: this checks one simulation
+          against another, not against a wind tunnel. Mesh independence was checked at &minus;4&deg; only,
+          and my mesh is coarser and unstructured where the paper's is a structured C-mesh.
         </p>
         <div class="tag-row">
           <span class="tag">ANSYS Fluent</span>
-          <span class="tag">RANS CFD</span>
-          <span class="tag">NACA 6412</span>
-          <span class="tag">Ground Effect Aerodynamics</span>
+          <span class="tag">SpaceClaim</span>
+          <span class="tag">RANS k-&omega; SST</span>
+          <span class="tag">Workbench Design Points</span>
+          <span class="tag">Python</span>
+          <span class="tag">Mesh Verification</span>
         </div>
       </div>
       <aside class="specs">
         <dl>
           <dt>Course</dt>
-          <dd>Principles of Aerodynamics</dd>
-          <dt>Validation case</dt>
-          <dd>Inverted NACA 6412, 2D RANS (k-&omega; SST), &minus;12&deg; to +4&deg;</dd>
-          <dt>Next</dt>
-          <dd>Inverted single-element wing, ground-effect ride-height study</dd>
-          <dt>Status</dt>
-          <dd>AoA sweep done, wall y+ verified; ride-height study next</dd>
+          <dd>Principles of Aerodynamics, Oct 2026</dd>
+          <dt>Reproduced</dt>
+          <dd>Yaser &amp; Das (2025), inverted S1223 vs. FX 63-137</dd>
+          <dt>Setup</dt>
+          <dd>2D steady RANS, SST k-&omega;; 250 mm chord, 83.3 m/s (300 km/h), Re &asymp; 1.41M</dd>
+          <dt>Sweep</dt>
+          <dd>+4&deg; to &minus;12&deg; in 2&deg; steps, 18 automated cases</dd>
+          <dt>Verification</dt>
+          <dd>y+ &lt; 1; &lt; 3% L/D change on mesh halving</dd>
         </dl>
-        <div class="result">Zero-lift angle within 0.3&deg;<br>of thin-airfoil theory; peak L/D 62</div>
+        <div class="result">Within 2% of the published study<br>Same winner, plus a separation finding the paper missed</div>
       </aside>
     </div>
 
     <div class="gallery">
-      <span class="eyebrow">NACA 6412 CFD validation sweep</span>
-      <div class="gallery-grid">
+      <span class="eyebrow">The headline: my results vs. the paper</span>
+      <div class="gallery-grid wide">
         <figure>
-          <img src="img/aero-viscosity-contour.jpg" alt="Turbulent viscosity ratio contour on NACA 6412 airfoil mesh" loading="lazy">
-          <figcaption>Turbulent viscosity ratio contour, ANSYS Fluent</figcaption>
+          <a href="img/cfd/06_LD_vs_angle_of_attack.png" target="_blank" rel="noopener"><img src="img/cfd/06_LD_vs_angle_of_attack.png" alt="Lift-to-drag ratio vs angle of attack for S1223 and FX 63-137, this study vs the published paper" loading="lazy"></a>
+          <figcaption>L/D vs. angle, mine (solid) against the paper (dashed). FX 63-137 beats S1223, same ranking as the paper. The spike at +4&deg; is the S1223 separating</figcaption>
         </figure>
         <figure>
-          <img src="img/aero-pressure-contour.jpg" alt="Static pressure contour on NACA 6412 airfoil mesh" loading="lazy">
-          <figcaption>Static pressure contour</figcaption>
+          <a href="img/cfd/05_S1223_plus4deg_velocity_separation.png" target="_blank" rel="noopener"><img src="img/cfd/05_S1223_plus4deg_velocity_separation.png" alt="Velocity contour of the S1223 at +4 degrees showing separated flow over the upper surface" loading="lazy"></a>
+          <figcaption>S1223 at +4&deg;: the whole upper surface sits in near-stationary air. Downforce collapses to CL &asymp; &minus;0.1 and drag rises ~4&times;. Not in the paper; reproduced on two meshes and two starting solutions</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">How the wing makes downforce (S1223, &minus;4&deg;)</span>
+      <div class="gallery-grid fit">
+        <figure>
+          <a href="img/cfd/15_S1223_velocity_contour_minus4deg.png" target="_blank" rel="noopener"><img src="img/cfd/15_S1223_velocity_contour_minus4deg.png" alt="Velocity magnitude contour around the inverted S1223 at -4 degrees" loading="lazy"></a>
+          <figcaption>Air speeds up to ~138 m/s under the wing vs. 83 m/s freestream. That speed difference pulls the wing down</figcaption>
         </figure>
         <figure>
-          <img src="img/aero-velocity-contour.jpg" alt="Velocity magnitude contour on NACA 6412 airfoil mesh" loading="lazy">
-          <figcaption>Velocity magnitude contour</figcaption>
+          <a href="img/cfd/16_S1223_pressure_contour_minus4deg.png" target="_blank" rel="noopener"><img src="img/cfd/16_S1223_pressure_contour_minus4deg.png" alt="Static pressure contour around the inverted S1223 at -4 degrees" loading="lazy"></a>
+          <figcaption>Same physics as pressure: up to +4.2 kPa on top, down to &minus;8.0 kPa underneath. The difference is the downforce</figcaption>
         </figure>
         <figure>
-          <img src="img/aero-data-table.jpg" alt="Table of Cl, Cd, and Cl/Cd values across angle of attack sweep" loading="lazy">
-          <figcaption>Cl, Cd, and Cl/Cd logged across the angle-of-attack sweep</figcaption>
+          <a href="img/cfd/07_CL_CD_vs_angle_of_attack.png" target="_blank" rel="noopener"><img src="img/cfd/07_CL_CD_vs_angle_of_attack.png" alt="Lift and drag coefficients vs angle of attack for both airfoils against the paper" loading="lazy"></a>
+          <figcaption>Lift and drag vs. angle against the paper. FX lift within 2&ndash;6%; S1223 drag runs higher than published</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">Why the numbers can be trusted</span>
+      <div class="gallery-grid fit two">
+        <figure>
+          <a href="img/cfd/08_S1223_wall_yplus_minus4deg.png" target="_blank" rel="noopener"><img src="img/cfd/08_S1223_wall_yplus_minus4deg.png" alt="Wall y-plus along the S1223 surface at -4 degrees" loading="lazy"></a>
+          <figcaption>S1223 wall y+: max 0.51, below 1 everywhere. The boundary layer is resolved down to the wall</figcaption>
         </figure>
         <figure>
-          <img src="img/aero-fluent-setup.jpg" alt="ANSYS Fluent solver setup and mesh domain" loading="lazy">
-          <figcaption>Solver setup and computational domain in Fluent</figcaption>
+          <a href="img/cfd/09_FX63137_wall_yplus_minus4deg.png" target="_blank" rel="noopener"><img src="img/cfd/09_FX63137_wall_yplus_minus4deg.png" alt="Wall y-plus along the FX 63-137 surface at -4 degrees" loading="lazy"></a>
+          <figcaption>FX 63-137 wall y+: max 0.73, one spike at the leading edge, below 1 everywhere</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/14_mesh_sensitivity_study.png" target="_blank" rel="noopener"><img src="img/cfd/14_mesh_sensitivity_study.png" alt="Mesh sensitivity study results at -4 degrees" loading="lazy"></a>
+          <figcaption>How much the results changed under each mesh change, at -4 deg. Changing only the trailing-edge mesh shifted S1223 drag by 9.5%. Halving cell size everywhere changed L/D by 0.3% (S1223) and 2.7% (FX). Shows the final results are mesh-independent, and that the S1223's gap to the paper is not caused by the mesh.</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/13_solver_residuals_convergence.png" target="_blank" rel="noopener"><img src="img/cfd/13_solver_residuals_convergence.png" alt="Solver residuals converging over iterations" loading="lazy"></a>
+          <figcaption>Residuals fall 6+ orders of magnitude; the run stops itself once lift stops changing</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">Setup: geometry, domain, mesh</span>
+      <div class="gallery-grid fit">
+        <figure>
+          <a href="img/cfd/01_S1223_inverted_geometry.png" target="_blank" rel="noopener"><img src="img/cfd/01_S1223_inverted_geometry.png" alt="Inverted S1223 airfoil geometry in SpaceClaim" loading="lazy"></a>
+          <figcaption>S1223, 250 mm chord, flipped to make downforce. Built from UIUC coordinates by my Python script</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/02_flow_domain_SpaceClaim.png" target="_blank" rel="noopener"><img src="img/cfd/02_flow_domain_SpaceClaim.png" alt="2D C-shaped flow domain in SpaceClaim" loading="lazy"></a>
+          <figcaption>Flow domain: 7.5 chord lengths (1875 mm) radius, airfoil at the origin. Same domain as the paper</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/03_final_mesh_around_airfoil.png" target="_blank" rel="noopener"><img src="img/cfd/03_final_mesh_around_airfoil.png" alt="Final quad-dominant mesh around the airfoil" loading="lazy"></a>
+          <figcaption>Final quad-dominant mesh, ~30k cells: fine at the surface, growing outward</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">What broke, and the fix</span>
+      <div class="gallery-grid fit two">
+        <figure>
+          <a href="img/cfd/10_problem_failed_mapped_mesh.png" target="_blank" rel="noopener"><img src="img/cfd/10_problem_failed_mapped_mesh.png" alt="Failed structured mesh with irregular cells around the airfoil" loading="lazy"></a>
+          <figcaption>Before: a structured mesh that never mapped. Part of a chain that included memory runaways and a PC crash</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/11_problem_triangle_fallback_mesh_FX.png" target="_blank" rel="noopener"><img src="img/cfd/11_problem_triangle_fallback_mesh_FX.png" alt="Mesher fallback to all-triangle mesh with no boundary layer on FX 63-137" loading="lazy"></a>
+          <figcaption>Before: the mesher gave up on quads for the FX 63-137 and fell back to triangles, no boundary layer</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/12_problem_sliver_cells_at_TE_corners.png" target="_blank" rel="noopener"><img src="img/cfd/12_problem_sliver_cells_at_TE_corners.png" alt="Near-collapsed sliver cells at the trailing edge corners" loading="lazy"></a>
+          <figcaption>Before: sliver cells at the trailing-edge corners (skewness 0.9985) that Fluent rejected. Fixed by doubling trailing-edge cell count</figcaption>
+        </figure>
+        <figure>
+          <a href="img/cfd/04_inflation_layers_at_blunt_trailing_edge.png" target="_blank" rel="noopener"><img src="img/cfd/04_inflation_layers_at_blunt_trailing_edge.png" alt="25 inflation layers wrapping the 0.5 mm blunt trailing edge" loading="lazy"></a>
+          <figcaption>After: 25 boundary-layer cells wrapping the 0.5 mm blunt trailing edge, first cell 0.002 mm. Every failure traced back, by bisection, to the original cusped trailing edge</figcaption>
         </figure>
       </div>
     </div>
@@ -623,7 +713,7 @@
           <dt>Withheld</dt>
           <dd>Application context, team data, and system-level results</dd>
         </dl>
-        <div class="result">98.8% vs. 81.7%<br>R-peak accuracy, Pan-Tompkins++ vs. NeuroKit2 (MIT-BIH NSTDB, 24 and 18 dB SNR)</div>
+        <div class="result">98.8% vs. 81.7% R-peak accuracy<br>Far fewer missed and false heartbeats in noisy signals (MIT-BIH NSTDB, 24 and 18 dB SNR)</div>
       </aside>
     </div>
 
