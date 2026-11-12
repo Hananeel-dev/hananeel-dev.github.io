@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hananeel Mandam</title>
-<meta name="description" content="Portfolio: thrust vector control gimbal design, UAV emergency landing perception, Baja SAE drivetrain, F1 rear-wing CFD reproduction, vision-based inspection, and real-time ECG signal processing.">
+<meta name="description" content="Portfolio: EDF hopper GN&amp;C simulation, thrust vector control gimbal design, UAV emergency landing perception, Baja SAE drivetrain, F1 rear-wing CFD reproduction, vision-based inspection, and real-time ECG signal processing.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hananeel-dev.github.io/">
 <meta property="og:title" content="Hananeel Ephraim Mandam | Mechanical Engineering Portfolio">
-<meta property="og:description" content="Thrust vector control gimbal, Baja SAE drivetrain and safety interlock, F1 rear-wing airfoil CFD reproduction, UAV landing perception, vision-based inspection, and ECG signal processing.">
+<meta property="og:description" content="EDF hopper GN&amp;C simulation (6% to 99% soft landings), thrust vector control gimbal, Baja SAE drivetrain and safety interlock, F1 rear-wing airfoil CFD reproduction, UAV landing perception, vision-based inspection, and ECG signal processing.">
 <meta property="og:image" content="https://hananeel-dev.github.io/img/og-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="627">
@@ -222,6 +222,8 @@
     .gallery-grid.wide{grid-template-columns:1fr;}
     .gallery-grid.wide img{height:220px;}
   }
+  .gallery-grid.one{grid-template-columns:1fr;}
+  .gallery-grid.one img{object-fit:contain;background:#fff;height:340px;}
   .gallery-grid.two{grid-template-columns:1fr 1fr;}
   .gallery-grid.two img{height:220px;}
   .gallery-grid figure a{display:block;}
@@ -358,10 +360,13 @@
         </div>
         <p>
           The servo cradles are printed into the mount, and the whole module connects through
-          <strong>four lugs</strong>: a reusable test stand now, the airframe later. I've bench-tested
-          servo actuation on an ESP32. Nothing is printed or flying yet. Next is printing, then a live
-          demo of the gimbal and vanes following a hand-held IMU, then a load-cell stand to measure
-          thrust and roll authority.
+          <strong>four lugs</strong>: a reusable test stand now, the airframe later. The gimbal and roll
+          vanes are now <strong>3D printed in PLA and assembled</strong>, and the interference checks held
+          through the full &plusmn;10&deg; range. Before any closed-loop testing, I wrote an
+          <strong>ESP32 bench self-test</strong> that checks the IMU, the servos, and power integrity, so a
+          wiring or sensor fault shows up on the bench instead of mid-test. Nothing has flown yet. Next is
+          closed-loop testing, a live demo of the gimbal and vanes following a hand-held IMU, then a
+          load-cell stand to measure thrust and roll authority.
         </p>
         <div class="tag-row">
           <span class="tag">SolidWorks</span>
@@ -370,6 +375,7 @@
           <span class="tag">Interference Analysis</span>
           <span class="tag">NACA 0012</span>
           <span class="tag">ESP32</span>
+          <span class="tag">3D Printing</span>
         </div>
       </div>
       <aside class="specs">
@@ -381,7 +387,7 @@
           <dt>Constraint</dt>
           <dd>&#8377;20k total project budget, workshop PLA printing</dd>
           <dt>Status</dt>
-          <dd>CAD complete and interference-checked; servos bench-tested; printing next</dd>
+          <dd>Printed in PLA and assembled; ESP32 bench self-test written; closed-loop testing next</dd>
         </dl>
         <div class="result">2 collisions found across 11 configurations<br>Fixed on screen, before anything was printed</div>
       </aside>
@@ -410,9 +416,116 @@
     </div>
   </section>
 
+  <section id="gnc">
+    <div class="section-head">
+      <div class="eyebrow">Project 03 · Guidance, Navigation &amp; Control</div>
+      <h2>EDF Hopper: GN&amp;C Simulation (Hardware Testing In Progress)</h2>
+    </div>
+    <div class="project">
+      <div class="story">
+        <p>
+          The first Monte Carlo run said the hopper would crash almost every time. Only
+          <strong>6% of 500</strong> simulated hoverslams landed softly.
+        </p>
+        <p>
+          The hopper is meant to climb to 30&nbsp;m on its 70&nbsp;mm electric ducted fan, cut to idle,
+          fall, and land itself with a last-second braking burn: a hoverslam. Before building the flight
+          hardware, I wrote a simulation to find out what would make it crash. The controller only ever
+          sees noisy sensor readings, never the true state, the same as the real flight computer.
+        </p>
+        <p>
+          Over 13 steps I added one real-world effect at a time and fixed each failure it exposed:
+          thrust errors, fan spool lag, sensor bias, body roll, an accelerometer that can't see tilt in
+          powered flight, and no sideways position sensor. The final <strong>6-DOF</strong> simulation
+          lands softly and upright in <strong>99%</strong> of randomised runs.
+        </p>
+        <div class="moment">
+          In powered flight the accelerometer measures thrust, not gravity, so it can't tell which way
+          is up. Levelling on the pad, calibrating gyro bias, then trusting the gyro alone took landings
+          from 42% to 99%.
+        </div>
+        <p>
+          I also compared five ways of knowing where the hopper is sideways. With no GPS it lands softly
+          but up to 45&nbsp;m away. GPS plus optical flow brings it within about 9&nbsp;m, so GPS is now
+          part of the flight hardware. Honest limit: the vehicle parameters are still estimates. Next I
+          measure the real hardware on a thrust stand and gimbal rig and feed those numbers back in.
+        </p>
+        <p><a href="https://github.com/Hananeel-dev/edf-hopper-gnc" target="_blank" rel="noopener">GitHub repository</a></p>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">6-DOF Dynamics</span>
+          <span class="tag">Quaternions</span>
+          <span class="tag">Mahony Filter</span>
+          <span class="tag">Kalman Filter</span>
+          <span class="tag">Monte Carlo</span>
+        </div>
+      </div>
+      <aside class="specs">
+        <dl>
+          <dt>Problem</dt>
+          <dd>Land a 70 mm EDF hopper softly and upright after a 30 m climb and free fall</dd>
+          <dt>Approach</dt>
+          <dd>6-DOF sim: quaternion dynamics, Mahony attitude filter, Kalman altitude filter, hoverslam guidance</dd>
+          <dt>Testing</dt>
+          <dd>Monte Carlo, 80 to 500 randomised runs per design</dd>
+          <dt>Status</dt>
+          <dd>Simulation complete with estimated parameters; hardware measurement next</dd>
+        </dl>
+        <div class="result">Soft landings raised from 6% to 99%<br>Four crash causes found and fixed before any hardware flew</div>
+      </aside>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">What the simulation changed</span>
+      <div class="gallery-grid wide">
+        <figure>
+          <a href="img/gnc/01_design_impact.png" target="_blank" rel="noopener"><img src="img/gnc/01_design_impact.png" alt="Before and after comparison of first and final designs across randomised runs" loading="lazy"></a>
+          <figcaption>What the simulation changed. Each pair compares my first design against the final one, scored over 80 to 500 randomised runs. Every grey bar is a failure the sim caught before any hardware existed</figcaption>
+        </figure>
+        <figure>
+          <a href="img/gnc/07_6dof_flight.png" target="_blank" rel="noopener"><img src="img/gnc/07_6dof_flight.png" alt="Full pad-to-pad 6-DOF flight trajectory" loading="lazy"></a>
+          <figcaption>One full pad-to-pad flight in 6-DOF: climb, idle coast, fall, braking burn, touchdown, with pitch, yaw and roll all coupled</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">From 6% to 99%</span>
+      <div class="gallery-grid fit two">
+        <figure>
+          <a href="img/gnc/03_first_monte_carlo.png" target="_blank" rel="noopener"><img src="img/gnc/03_first_monte_carlo.png" alt="First Monte Carlo run of 500 hoverslams" loading="lazy"></a>
+          <figcaption>The first reality check. 500 hoverslams with realistic thrust, lag and mass errors: only 6% touched down below 1 m/s. Weaker real thrust is the main driver of hard landings</figcaption>
+        </figure>
+        <figure>
+          <a href="img/gnc/04_hoverslam_fixed.png" target="_blank" rel="noopener"><img src="img/gnc/04_hoverslam_fixed.png" alt="Monte Carlo results after three fixes" loading="lazy"></a>
+          <figcaption>After three fixes: feedback on measured acceleration, a slow terminal descent below 1.5 m, and planning the burn with only 70% of assumed thrust. All 500 runs land between 0.4 and 0.6 m/s, even with a weak fan and a heavy vehicle</figcaption>
+        </figure>
+        <figure>
+          <a href="img/gnc/05_attitude_estimator.png" target="_blank" rel="noopener"><img src="img/gnc/05_attitude_estimator.png" alt="Attitude estimator comparison" loading="lazy"></a>
+          <figcaption>In powered flight the accelerometer measures thrust, not gravity, so it can't tell which way is up. Levelling on the pad, calibrating gyro bias, then trusting the gyro alone took landings from 42% to 99%</figcaption>
+        </figure>
+        <figure>
+          <a href="img/gnc/06_navigation_options.png" target="_blank" rel="noopener"><img src="img/gnc/06_navigation_options.png" alt="Comparison of five navigation schemes" loading="lazy"></a>
+          <figcaption>Five ways to know where you are sideways, tested on the same flights. With no GPS, the craft lands softly but up to 45 m away. GPS plus optical flow brings it within about 9 m</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <span class="eyebrow">How it is built</span>
+      <div class="gallery-grid one">
+        <figure>
+          <a href="img/gnc/02_architecture.png" target="_blank" rel="noopener"><img src="img/gnc/02_architecture.png" alt="Simulation architecture diagram" loading="lazy"></a>
+          <figcaption>How the simulation is built. The controller only ever sees noisy sensor readings, never the true state, the same as the real flight computer</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section id="vulcan">
     <div class="section-head">
-      <div class="eyebrow">Project 03 · Powertrain &amp; Mechanical Design</div>
+      <div class="eyebrow">Project 04 · Powertrain &amp; Mechanical Design</div>
       <h2>Vulcan: Baja SAE Drivetrain</h2>
     </div>
     <div class="project">
@@ -437,11 +550,13 @@
         </div>
         <p>
           Running the gearbox in <strong>ANSYS FEA at 90 Nm peak torque</strong> caught a fillet
-          below a safety factor of 1.0. In plain terms: that part would have failed under full
-          load, and we found it on screen instead of on the trail. I iterated the geometry before
-          fabrication. I also built the microcontroller-based <strong>safety interlock</strong> from
-          scratch to SAE E-Baja rules and coordinated a 7-person team through fabrication and
-          vendor timelines. We missed competition because of vendor lead times outside our control.
+          below a safety factor of 1.0. That part would have failed under full load, and we found
+          it on screen instead of on the trail. I reworked the geometry to a safety factor of
+          <strong>1.5</strong> before fabrication. The car had no safety interlock, so I built one from
+          scratch to SAE E-Baja rules: microcontroller code, relay logic, and the high-voltage to
+          low-voltage interface. It passed <strong>all 7 failure cases</strong> we forced on the bench,
+          fit without changing anything on the car, and I documented it for future teams. I also
+          coordinated a 7-person team through fabrication and vendor timelines. We missed competition because of vendor lead times outside our control.
         </p>
         <div class="tag-row">
           <span class="tag">SolidWorks</span>
@@ -462,7 +577,7 @@
           <dt>Team</dt>
           <dd>7 members, cross-discipline coordination</dd>
         </dl>
-        <div class="result">Sub-1.0 safety factor caught at 90 Nm<br>A part that would have broken, found before fabrication</div>
+        <div class="result">Safety factor below 1.0 raised to 1.5<br>A part that would have broken, fixed before fabrication</div>
       </aside>
     </div>
 
@@ -503,7 +618,7 @@
 
   <section id="aero">
     <div class="section-head">
-      <div class="eyebrow">Project 04 · Computational Fluid Dynamics</div>
+      <div class="eyebrow">Project 05 · Computational Fluid Dynamics</div>
       <h2>Inverted Airfoil CFD: Reproducing an F1 Rear-Wing Study</h2>
     </div>
     <div class="project">
@@ -664,7 +779,7 @@
 
   <section id="ceeri">
     <div class="section-head">
-      <div class="eyebrow">Project 05 · Physiological Signal Processing</div>
+      <div class="eyebrow">Project 06 · Physiological Signal Processing</div>
       <h2>Real-Time ECG Peak Detection</h2>
     </div>
     <div class="project">
@@ -738,7 +853,7 @@
 
   <section id="stitching">
     <div class="section-head">
-      <div class="eyebrow">Project 06 · Computer Vision &amp; Validation</div>
+      <div class="eyebrow">Project 07 · Computer Vision &amp; Validation</div>
       <h2>Image Stitching for Dimensional Inspection</h2>
     </div>
     <div class="project">
