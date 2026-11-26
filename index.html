@@ -480,11 +480,11 @@
       <span class="eyebrow">What the simulation changed</span>
       <div class="gallery-grid wide">
         <figure>
-          <a href="img/cfd/01_design_impact.png" target="_blank" rel="noopener"><img src="img/cfd/01_design_impact.png" alt="Before and after comparison of first and final designs across randomised runs" loading="lazy"></a>
+          <a href="img/01_design_impact.png" target="_blank" rel="noopener"><img src="img/01_design_impact.png" alt="Before and after comparison of first and final designs across randomised runs" loading="lazy"></a>
           <figcaption>What the simulation changed. Each pair compares my first design against the final one, scored over 80 to 500 randomised runs. Every grey bar is a failure the sim caught before any hardware existed</figcaption>
         </figure>
         <figure>
-          <a href="img/cfd/07_6dof_flight.png" target="_blank" rel="noopener"><img src="img/cfd/07_6dof_flight.png" alt="Full pad-to-pad 6-DOF flight trajectory" loading="lazy"></a>
+          <a href="img/07_6dof_flight.png" target="_blank" rel="noopener"><img src="img/07_6dof_flight.png" alt="Full pad-to-pad 6-DOF flight trajectory" loading="lazy"></a>
           <figcaption>One full pad-to-pad flight in 6-DOF: climb, idle coast, fall, braking burn, touchdown, with pitch, yaw and roll all coupled</figcaption>
         </figure>
       </div>
@@ -494,19 +494,19 @@
       <span class="eyebrow">From 6% to 99%</span>
       <div class="gallery-grid fit two">
         <figure>
-          <a href="img/cfd/03_first_monte_carlo.png" target="_blank" rel="noopener"><img src="img/cfd/03_first_monte_carlo.png" alt="First Monte Carlo run of 500 hoverslams" loading="lazy"></a>
+          <a href="img/03_first_monte_carlo.png" target="_blank" rel="noopener"><img src="img/03_first_monte_carlo.png" alt="First Monte Carlo run of 500 hoverslams" loading="lazy"></a>
           <figcaption>The first reality check. 500 hoverslams with realistic thrust, lag and mass errors: only 6% touched down below 1 m/s. Weaker real thrust is the main driver of hard landings</figcaption>
         </figure>
         <figure>
-          <a href="img/cfd/04_hoverslam_fixed.png" target="_blank" rel="noopener"><img src="img/cfd/04_hoverslam_fixed.png" alt="Monte Carlo results after three fixes" loading="lazy"></a>
+          <a href="img/04_hoverslam_fixed.png" target="_blank" rel="noopener"><img src="img/04_hoverslam_fixed.png" alt="Monte Carlo results after three fixes" loading="lazy"></a>
           <figcaption>After three fixes: feedback on measured acceleration, a slow terminal descent below 1.5 m, and planning the burn with only 70% of assumed thrust. All 500 runs land between 0.4 and 0.6 m/s, even with a weak fan and a heavy vehicle</figcaption>
         </figure>
         <figure>
-          <a href="img/cfd/05_attitude_estimator.png" target="_blank" rel="noopener"><img src="img/gnc/05_attitude_estimator.png" alt="Attitude estimator comparison" loading="lazy"></a>
+          <a href="img/05_attitude_estimator.png" target="_blank" rel="noopener"><img src="img/gnc/05_attitude_estimator.png" alt="Attitude estimator comparison" loading="lazy"></a>
           <figcaption>In powered flight the accelerometer measures thrust, not gravity, so it can't tell which way is up. Levelling on the pad, calibrating gyro bias, then trusting the gyro alone took landings from 42% to 99%</figcaption>
         </figure>
         <figure>
-          <a href="img/cfd/06_navigation_options.png" target="_blank" rel="noopener"><img src="img/cfd/06_navigation_options.png" alt="Comparison of five navigation schemes" loading="lazy"></a>
+          <a href="img/06_navigation_options.png" target="_blank" rel="noopener"><img src="img/06_navigation_options.png" alt="Comparison of five navigation schemes" loading="lazy"></a>
           <figcaption>Five ways to know where you are sideways, tested on the same flights. With no GPS, the craft lands softly but up to 45 m away. GPS plus optical flow brings it within about 9 m</figcaption>
         </figure>
       </div>
@@ -516,7 +516,7 @@
       <span class="eyebrow">How it is built</span>
       <div class="gallery-grid one">
         <figure>
-          <a href="img/cfd/02_architecture.png" target="_blank" rel="noopener"><img src="img/cfd/02_architecture.png" alt="Simulation architecture diagram" loading="lazy"></a>
+          <a href="img/02_architecture.png" target="_blank" rel="noopener"><img src="img/02_architecture.png" alt="Simulation architecture diagram" loading="lazy"></a>
           <figcaption>How the simulation is built. The controller only ever sees noisy sensor readings, never the true state, the same as the real flight computer</figcaption>
         </figure>
       </div>
